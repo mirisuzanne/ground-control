@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Demo of component-name Web Component" />
+    <title>component-name Web Component</title>
+
+    <script type="module" src="component-name.js"></script>
+
+    <style>
+      @layer reset, base;
+
+      @layer base {
+        html {
+          --pink: #B6236C;
+          --blue: #205769;
+
+          /* from https://modernfontstacks.com/ */
+          /* old style, industrial, slab */
+          --serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+          --sans: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+          --slab: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
+
+          font-family: var(--serif);
+          color-scheme: light dark;
+        }
+
+        body {
+          --text-small: clamp(0.938rem, 0.824rem + 0.568cqi, 1.25rem);
+          --text-normal: clamp(1.25rem, 1.023rem + 1.136cqi, 1.875rem);
+          --text-large: clamp(1.35rem, 0.818rem + 2.659cqi, 2.813rem);
+          --text-xlarge: clamp(1.7rem, 0.784rem + 4.58cqi, 4.219rem);
+          --gap: clamp(2cqi, 0.5lh, 5cqi);
+          font-size: var(--text-normal);
+          padding: var(--gap);
+          max-inline-size: 36em;
+        }
+
+        [demo-style] {
+          border-block: thin dashed;
+          display: block;
+          font-family: monospace;
+          margin-block: 0.5lh;
+          overflow: auto;
+          padding-block: 0.5lh;
+          white-space: pre;
+        }
+      }
+
+      @layer reset {
+        * { box-sizing: border-box; }
+        html { block-size: 100%; }
+
+        body {
+          margin: unset;
+          min-block-size: 100%;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+          text-wrap: balance;
+        }
+
+        p, li {
+          text-wrap: pretty;
+        }
+
+        picture { display: contents; }
+        img { display: block; }
+
+        img,
+        svg {
+          max-inline-size: 100%;
+        }
+
+        input,
+        button,
+        textarea,
+        select {
+          font: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>&lt;component-name> Web Component</h1>
+
+    <ul>
+      <li>
+        <a href="https://github.com/mirisuzanne/component-name">Source on github</a>.
+      </li>
+      <li>
+        <a href="https://www.npmjs.com/package/@terriblemia/component-name">Package on NPM</a>
+      </li>
+    </ul>
+
+    <hr>
+
+    <h2>General usage example</h2>
+
+    <hr>
+
+    <h2>Fallbacks & Extras</h2>
+
+
+  </body>
+</html>
