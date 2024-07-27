@@ -1,14 +1,14 @@
 {
-  "name": "@terriblemia/component-name",
+  "name": "@terriblemia/ground-control",
   "version": "0.1.0",
   "description": "A Web Component for…",
-  "main": "component-name.js",
+  "main": "ground-control.js",
   "scripts": {
     "dev": "npx http-server ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mirisuzanne/component-name.git"
+    "url": "git+https://github.com/mirisuzanne/ground-control.git"
   },
   "keywords": [
     "web",
@@ -22,12 +22,12 @@
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/mirisuzanne/component-name/issues"
+    "url": "https://github.com/mirisuzanne/ground-control/issues"
   },
   "author": {
     "name": "Miriam Suzanne",
     "email": "miriam@oddbird.net",
     "url": "https://miriamsuzanne.com/"
   },
-  "homepage": "https://github.com/mirisuzanne/component-name#readme"
+  "homepage": "https://github.com/mirisuzanne/ground-control#readme"
 }

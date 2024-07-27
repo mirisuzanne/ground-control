@@ -3,105 +3,218 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Demo of component-name Web Component" />
-    <title>component-name Web Component</title>
+    <meta name="description" content="Demo of ground-control Web Component" />
+    <title>Ground-Control Web Component</title>
 
-    <script type="module" src="component-name.js"></script>
-
-    <style>
-      @layer reset, base;
-
-      @layer base {
-        html {
-          --pink: #B6236C;
-          --blue: #205769;
-
-          /* from https://modernfontstacks.com/ */
-          /* old style, industrial, slab */
-          --serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
-          --sans: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
-          --slab: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
-
-          font-family: var(--serif);
-          color-scheme: light dark;
-        }
-
-        body {
-          --text-small: clamp(0.938rem, 0.824rem + 0.568cqi, 1.25rem);
-          --text-normal: clamp(1.25rem, 1.023rem + 1.136cqi, 1.875rem);
-          --text-large: clamp(1.35rem, 0.818rem + 2.659cqi, 2.813rem);
-          --text-xlarge: clamp(1.7rem, 0.784rem + 4.58cqi, 4.219rem);
-          --gap: clamp(2cqi, 0.5lh, 5cqi);
-          font-size: var(--text-normal);
-          padding: var(--gap);
-          max-inline-size: 36em;
-        }
-
-        [demo-style] {
-          border-block: thin dashed;
-          display: block;
-          font-family: monospace;
-          margin-block: 0.5lh;
-          overflow: auto;
-          padding-block: 0.5lh;
-          white-space: pre;
-        }
-      }
-
-      @layer reset {
-        * { box-sizing: border-box; }
-        html { block-size: 100%; }
-
-        body {
-          margin: unset;
-          min-block-size: 100%;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-          text-wrap: balance;
-        }
-
-        p, li {
-          text-wrap: pretty;
-        }
-
-        picture { display: contents; }
-        img { display: block; }
-
-        img,
-        svg {
-          max-inline-size: 100%;
-        }
-
-        input,
-        button,
-        textarea,
-        select {
-          font: inherit;
-        }
-      }
-    </style>
+    <script type="module" src="index.js"></script>
+    <link rel="stylesheet" href="demo.css">
   </head>
   <body>
-    <h1>&lt;component-name> Web Component</h1>
+    <main data-layout="narrow">
 
-    <ul>
-      <li>
-        <a href="https://github.com/mirisuzanne/component-name">Source on github</a>.
-      </li>
-      <li>
-        <a href="https://www.npmjs.com/package/@terriblemia/component-name">Package on NPM</a>
-      </li>
-    </ul>
+      <h1>Ground Controls</h1>
+      <p>
+        Use the <code>&lt;input-control></code>
+        and <code>&lt;toggle-control></code>
+        web components
+        to control attributes and properties
+        from UI input/select or toggle buttons.
+        Or extend the <code>&lt;ground-control></code> base class
+        to create other control types
+        that need to broadcast a value
+        to surrounding elements.
+      </p>
 
-    <hr>
+      <ul>
+        <li>
+          <a href="https://github.com/mirisuzanne/ground-control">Source on github</a>.
+        </li>
+        <li>
+          <a href="https://www.npmjs.com/package/@terriblemia/ground-control">Package on NPM</a>
+        </li>
+      </ul>
 
-    <h2>General usage example</h2>
+      <hr>
 
-    <hr>
+      <h2>Input-Control: Range</h2>
 
-    <h2>Fallbacks & Extras</h2>
+      <input-control data-prop="--hue" data-session="hue" data-event="input">
+        <label for="hue">Hue</label>
+        <input id="hue" type="range" min="0" max="360" value="200">
+        <output for="hue"></output>
+      </input-control>
 
+      <details>
+        <dl>
+          <dt><code>data-prop: --hue</code></dt>
+          <dd>Control the <code>--hue</code> CSS custom property</dd>
 
+          <dt><code>data-session: hue</code></dt>
+          <dd>
+            Save the setting to <code>sessionStorage</code>
+            as <code>hue</code>
+          </dd>
+
+          <dt><code>data-event: input</code></dt>
+          <dd>
+            Listen for the <code>input</code> event,
+            rather than the default <code>change</code> event
+          </dd>
+        </dl>
+
+        <p>
+          Since no <code>data-for</code> is provided,
+          the property is applied to the <code>:root</code> element.
+          This example also includes an
+          <code>&lt;output for="hue"></code> element,
+          which is updated with the active value
+          of the <code>&lt;input id="hue"></code>.
+        </p>
+      </details>
+
+      <h2>Input-Control Select</h2>
+
+      <input-control data-for="h1, h2, h3" data-prop="font-family" data-local="title-font">
+        <label for="title-font">Title Font</label>
+        <select name="title-font" id="title-font">
+          <option value="var(--serif)">Serif</option>
+          <option value="var(--sans)" selected>Sans</option>
+          <option value="var(--slab)">slab</option>
+          <option value="var(--code)">Monospace</option>
+        </select>
+      </input-control>
+
+      <details>
+        <dl>
+          <dt><code>data-for: h1, h2, h3</code></dt>
+          <dd>Provide values to three levels of heading elements</dd>
+
+          <dt><code>data-prop: font-family</code></dt>
+          <dd>
+            Control the <code>font-family</code> CSS property
+            on those elements
+          </dd>
+
+          <dt><code>data-local: title-font</code></dt>
+          <dd>
+            Save the setting to <code>localStorage</code>
+            as <code>title-font</code>
+          </dd>
+        </dl>
+      </details>
+
+      <h2>Toggle-Control: Single Button (switch)</h2>
+
+      <toggle-control id="layout" data-for="main" data-attr="data-layout" data-off="narrow">
+        <strong>Layout</strong>
+        <button>wide</button>
+      </toggle-control>
+
+      <details>
+        <dl>
+          <dt><code>id: layout</code></dt>
+          <dd>
+            Provide an <code>id</code> for toggles,
+            in order to reference them
+            with a reset button or output display
+          </dd>
+
+          <dt><code>data-for: main</code></dt>
+          <dd>Control the <code>main</code> element</dd>
+
+          <dt><code>data-attr: data-layout</code></dt>
+          <dd>Set the <code>data-layout</code> attribute</dd>
+
+          <dt><code>data-off: narrow</code></dt>
+          <dd>Set the <code>narrow</code> value when toggled off</dd>
+        </dl>
+      </details>
+
+      <h2>Toggle-Control: Multi-Button</h2>
+
+      <toggle-control id="color-scheme" data-prop="color-scheme" data-local="color-scheme" data-off="light dark">
+        <strong>Color Scheme</strong>
+        <button data-value="light dark" aria-pressed="true">auto</button>
+        <button>light</button>
+        <button>dark</button>
+      </toggle-control>
+
+      <details>
+        <dl>
+          <dt><code>id: color-scheme</code></dt>
+          <dd>
+            Provide an <code>id</code> for toggle groups,
+            in order to reference them
+            with a reset button or output display
+          </dd>
+
+          <dt><code>data-prop: color-scheme</code></dt>
+          <dd>Control the <code>color-scheme</code> CSS property</dd>
+
+          <dt><code>data-local: color-scheme</code></dt>
+          <dd>
+            Save the setting to <code>localStorage</code>
+            as <code>color-scheme</code>
+          </dd>
+
+          <dt><code>data-off: light dark</code></dt>
+          <dd>
+            Provide a value when all toggles are un-pressed.
+            By using one of the toggle values,
+            we set that one as the default.
+          </dd>
+        </dl>
+
+        <p>On the nested <code>button</code>s, we also have…</p>
+
+        <dl>
+          <dt><code>aria-pressed: true</code></dt>
+          <dd>
+            Set one of the <code>buttons</code> as default-on
+            (all toggle controls are exclusive)
+          </dd>
+
+          <dt><code>data-value: light dark</code></dt>
+          <dd>
+            Set an explicit value
+            that is different from the
+            button text of <code>auto</code>
+          </dd>
+        </dl>
+      </details>
+
+      <hr>
+
+      <h2>Outputs & Resets</h2>
+
+      <p>
+        We can setup <code>&lt;output for="id"></code> elements
+        to display the value of a given control,
+        or use <code>&lt;button data-reset="list of ids"></code>
+        to reset controls back to their initial value.
+      </p>
+
+      <dl>
+        <dt>Current Hue</dt>
+        <dd><output for="hue"></output></dd>
+        <dt>Current Title Font</dt>
+        <dd><output for="title-font"></output></dd>
+        <dt>Current Color Scheme</dt>
+        <dd><output for="color-scheme"></output></dd>
+      </dl>
+
+      <button data-reset="layout title-font color-scheme hue">reset all</button>
+
+      <h2>ToDo</h2>
+      <ul>
+        <li>
+          Allow <code>id</code> to be set on a solo switch
+          rather than on the <code>&lt;toggle-control></code> wrapper.
+        </li>
+        <li>
+          Support for e.g. dialog/disclosure toggles?
+        </li>
+      </ul>
+    </main>
   </body>
 </html>

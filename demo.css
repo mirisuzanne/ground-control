@@ -1,0 +1,124 @@
+body {
+  --h: calc(var(--hue) * 1deg);
+  --color: hsl(var(--h) 50% 50%);
+  background: linear-gradient(
+    to bottom right,
+    Canvas,
+    var(--color),
+    Canvas
+  ) no-repeat fixed;
+
+  @supports (color: oklch(0% 0% 0deg)) {
+    --color: oklch(50% 50% var(--h));
+  }
+}
+
+[data-layout=narrow] {
+  max-inline-size: min(35em, 80%);
+}
+
+[data-layout=wide] {
+  max-inline-size: 45em;
+}
+
+@layer reset, base;
+
+@layer base {
+  html {
+    --pink: #B6236C;
+    --blue: #205769;
+
+    --gap: clamp(2cqi, 0.5lh, 5cqi);
+    --shim: calc(var(--gap) / 2);
+
+    /* from https://modernfontstacks.com/ */
+    /* old style, industrial, slab */
+    --serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+    --sans: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+    --slab: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
+    --code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+    color-scheme: light dark;
+    font-family: var(--sans);
+    font-size-adjust: from-font;
+  }
+
+  body {
+    display: grid;
+    font-size: 20px;
+    padding: var(--gap);
+  }
+
+  main {
+    background: Canvas;
+    border: thick solid;
+    box-shadow: 0 0 var(--shim) Canvas;
+    justify-self: safe center;
+    padding: var(--gap);
+    inline-size: 100%;
+  }
+
+  pre, code, output {
+    font-family: var(--code);
+  }
+
+  details {
+    margin-block: 1em;
+    background-color: light-dark(papayawhip, darkslateblue);
+    border-radius: 3px;
+    padding: var(--shim);
+  }
+
+  :focus-visible {
+    outline: thick solid;
+    outline-offset: 0.25em;
+  }
+
+  button {
+    background: transparent;
+    border: thick double currentColor;
+    border-radius: 3px;
+    color: currentcolor;
+    font-weight: bold;
+    padding: 0 1ch;
+
+    &[aria-pressed=true] {
+      background: AccentColor;
+      border-color: Canvas;
+      color: AccentColorText;
+    }
+  }
+}
+
+@layer reset {
+  * { box-sizing: border-box; }
+  html { block-size: 100%; }
+
+  body {
+    margin: unset;
+    min-block-size: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p, li {
+    text-wrap: pretty;
+  }
+
+  picture { display: contents; }
+  img { display: block; }
+
+  img,
+  svg {
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+}

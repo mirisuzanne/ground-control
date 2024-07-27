@@ -1,34 +1,65 @@
-# `component-name`
+# `ground-control`
 
-A Web Component for…
+A Web Component for
+providing user interactions
+that control HTML attributes
+and CSS properties
+on other elements of the page.
 
-## Features
+- Use `input-control` to get values
+  from `input` and `select` elements
+- Use `toggle-control` to get values
+  from solo or grouped toggle buttons
+- Store and retrieve values
+  in either `sessionStorage` or `localStorage`
+- Update `output` elements to display the current values
+- Provide reset buttons, to clear any changes
+- Extend the `ground-control` base class
+  to set up other sources for broadcasting
 
-
-**[Demo](https://mirisuzanne.github.io/component-name/index.html)**
-
-[![Open in StackBlitz][]](https://stackblitz.com/~/github.com/mirisuzanne/component-name?file=component-name.js&initialPath=/index.html)
-
-[Open in StackBlitz]: https://developer.stackblitz.com/img/open_in_stackblitz.svg
+**[Demo](https://mirisuzanne.github.io/ground-control/index.html)**
 
 ## Examples
 
-General usage example:
+With a range input:
 
 ```html
-<script type="module" src="component-name.js"></script>
+<script type="module" src="index.js"></script>
 
-<component-name></component-name>
+<input-control
+  data-for=".color-swatch"
+  data-prop="--hue"
+  data-session="hue"
+>
+  <label for="hue">Hue</label>
+  <input id="hue" type="range" min="0" max="360" value="200">
+  <output for="hue"></output>
+</input-control>
 ```
 
+Or a group of toggle buttons:
+
+```html
+<toggle-control
+  id="color-scheme"
+  data-prop="color-scheme"
+  data-local="color-scheme"
+  data-off="light dark"
+>
+  <strong>Color Scheme</strong>
+  <button data-value="light dark" aria-pressed="true">auto</button>
+  <button>light</button>
+  <button>dark</button>
+</toggle-control>
+```
 ## Installation
 
 You have a few options (choose one):
 
 1. Install via
-   [npm](https://www.npmjs.com/package/@terriblemia/component-name):
-   `npm install @terriblemia/component-name`
-2. [Download the source manually from GitHub](https://github.com/mirisuzanne/component-name/releases)
+   [npm](https://www.npmjs.com/package/@terriblemia/ground-control):
+   `npm install @terriblemia/ground-control`
+2. [Download the source manually from GitHub](https://github.com/mirisuzanne/ground-control/releases)
    into your project.
 3. Skip this step
    and use the script directly
@@ -42,14 +73,14 @@ Make sure you include the `<script>` in your project
 
 ```html
 <!-- Host yourself -->
-<script type="module" src="component-name.js"></script>
+<script type="module" src="index.js"></script>
 ```
 
 ```html
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://www.unpkg.com/@terriblemia/component-name@1.0.0/component-name.js"
+  src="https://www.unpkg.com/@terriblemia/ground-control@0.1.0/index.js"
 ></script>
 ```
 
@@ -57,14 +88,14 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://esm.sh/@terriblemia/component-name@1.0.0"
+  src="https://esm.sh/@terriblemia/ground-control@0.1.0"
 ></script>
 ```
 
 Or use the built in
-[WebC](https://www.11ty.dev/docs/languages/webc/) component
+[WebC](https://www.11ty.dev/docs/languages/webc/) components
 with [Eleventy](https://www.11ty.dev/docs/),
-by adding `"npm:@terriblemia/component-name/*.webc"`
+by adding `"npm:@terriblemia/ground-control/*.webc"`
 to the Eleventy WebC Plugin `components` registry:
 
 ```js
@@ -73,21 +104,53 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(eleventyWebcPlugin, {
     components: [
       // Add as a global WebC component
-      "npm:@11ty/component-name/*.webc",
+      "npm:@terriblemia/ground-control/*.webc",
     ],
-  });
+  })
 }
 ```
 
-### Style hooks
+This provides `input-control` and `toggle-control` components.
 
+## All the attributes
 
-### Slots
-
-
-## ToDo
-
-- [ ] There's always more to do
+- `ground-control` base class
+- `input-control` supports basic `input` and `select` types
+  (but not files, checkboxes, or radios)
+- `toggle-control` supports solo and grouped toggles
+- Built-in WebC components
+- Control element attributes:
+  - `id="<control-id>"` [optional]:
+    A standard HTML id for referencing the control
+  - `data-for="<selector>"` [defaults to `:root`]:
+    the elements to update
+  - `data-prop="<css-property-name>"` [optional]:
+    the CSS property to set
+  - `data-attr="<attribute-name>"` [optional]:
+    the HTML attribute to set
+  - `data-local="<localStorage-key>"` [optional]:
+    store and retrieve the value from `localStorage`
+  - `data-session="<sessionStorage-key>"` [optional]:
+    store and retrieve the value from `sessionStorage`
+  - `data-event="<event-name>"` [optional]:
+    only used by `input-control` at this point,
+    which can listen for either `change` (the default) or `input`
+  - `data-off="<value>"` [optional]:
+    the value to use when no other value is selected
+    (primarily for toggles, but also useful with `select`)
+- `button` element attributes inside `toggle-control`:
+  - `data-value` [defaults to the `button.innerText`]:
+    provide a value for the toggle
+    that is different from the text of the button
+  - `aria-pressed` [optional]:
+    set the initial pressed state of each toggle
+    (only one in a group can be active at a time)
+- Support for `output` displays and `reset` buttons:
+  - Using the `id` of the `input`/`select` or the `toggle-control`…
+  - `<output for="<control-id>">`:
+    will set the `output` as a display for the control
+  - `<button data-reset="<control-id-list>">`:
+    will use the button to clear the referenced controls
 
 ## Support
 
