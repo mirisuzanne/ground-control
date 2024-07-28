@@ -1,6 +1,6 @@
-import { GroundControl } from "./ground-control.js";
+import GroundControl from "./ground-control.js";
 
-export class ToggleControl extends GroundControl {
+export default class ToggleControl extends GroundControl {
   static register(tagName) {
     if ('customElements' in window) {
       customElements.define(

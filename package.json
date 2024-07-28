@@ -2,7 +2,7 @@
   "name": "@terriblemia/ground-control",
   "version": "0.1.0",
   "description": "A Web Component for…",
-  "main": "ground-control.js",
+  "main": "index.js",
   "scripts": {
     "dev": "npx http-server ."
   },

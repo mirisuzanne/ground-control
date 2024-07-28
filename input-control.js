@@ -1,6 +1,6 @@
-import { GroundControl } from "./ground-control.js";
+import GroundControl from "./ground-control.js";
 
-export class InputControl extends GroundControl {
+export default class InputControl extends GroundControl {
   static register(tagName) {
     if ('customElements' in window) {
       customElements.define(
