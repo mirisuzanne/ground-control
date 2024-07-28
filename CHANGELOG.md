@@ -1,6 +1,11 @@
 # Changes
 
-## v0.1.0 - UNRELEASED
+## v0.1.1 - 2024-07-27
+
+- FIX: `index.js` is the main package entry point
+- Use default exports
+
+## v0.1.0 - 2024-07-26
 
 Initial Features…
 
