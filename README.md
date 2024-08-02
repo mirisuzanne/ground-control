@@ -109,6 +109,18 @@ module.exports = function (eleventyConfig) {
   })
 }
 ```
+Make sure your template adds an import map, for example this one which imports from esm.sh
+
+```html
+<script webc:keep type="importmap">
+  {
+    "imports": {
+      "@terriblemia/ground-control/": "https://esm.sh/@terriblemia/ground-control/"
+    }
+  }
+</script>
+```
+Note also that you must opt-in to standard script element behaviour with the `webc:keep` attribute if you place this import map in a webc template.
 
 This provides `input-control` and `toggle-control` components.
 
