@@ -1,2 +1,5 @@
-<script src="./ground-control.js"></script>
-<script src="./toggle-control.js"></script>
+<script webc:keep type="module">
+  import '@terriblemia/ground-control/toggle-control.js';
+</script>
+
+<slot></slot>
