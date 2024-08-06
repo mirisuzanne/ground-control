@@ -1,6 +1,6 @@
 # Changes
 
-## v0.1.3 - 2024-08-06
+## v0.1.4 - 2024-08-06
 
 - FIX: Don't use ES modules for webC templates
 
