@@ -1,11 +1,15 @@
 # Changes
 
-## v0.1.1 - 2024-07-27
+## v0.1.3 - 2024-08-06
+
+- FIX: Don't use ES modules for webC templates
+
+## v0.1.2 - 2024-07-27
 
 - FIX: `index.js` is the main package entry point
 - Use default exports
 
-## v0.1.2 - 2024-07-26
+## v0.1.0 - 2024-07-26
 
 Initial Features…
 

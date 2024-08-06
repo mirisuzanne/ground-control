@@ -1,2 +1,2 @@
-<script src="./ground-control.js"></script>
-<script src="./input-control.js"></script>
+<script src="./ground-control-raw.js"></script>
+<script src="./input-control-raw.js"></script>

@@ -1,8 +1,7 @@
 # `ground-control`
 
 A Web Component for
-providing user interactions
-that control HTML attributes
+user control of HTML attributes
 and CSS properties
 on other elements of the page.
 
@@ -80,7 +79,7 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://www.unpkg.com/@terriblemia/ground-control@0.1.2/index.js"
+  src="https://www.unpkg.com/@terriblemia/ground-control@0.1.3/index.js"
 ></script>
 ```
 
@@ -88,7 +87,7 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://esm.sh/@terriblemia/ground-control@0.1.2"
+  src="https://esm.sh/@terriblemia/ground-control@0.1.3"
 ></script>
 ```
 
