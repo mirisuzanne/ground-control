@@ -1,6 +1,6 @@
 {
   "name": "@terriblemia/ground-control",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A Web Component for user control of HTML attributes and CSS properties",
   "main": "index.js",
   "scripts": {

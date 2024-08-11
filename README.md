@@ -92,7 +92,7 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://www.unpkg.com/@terriblemia/ground-control@0.1.4/index.js"
+  src="https://www.unpkg.com/@terriblemia/ground-control@0.1.5/index.js"
 ></script>
 ```
 
@@ -100,7 +100,7 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://esm.sh/@terriblemia/ground-control@0.1.4"
+  src="https://esm.sh/@terriblemia/ground-control@0.1.5"
 ></script>
 ```
 
