@@ -18,6 +18,7 @@ class InputControl extends GroundControl {
 
   constructor() {
     super();
+    GroundControl.blockDisplay(this);
 
     this.addEventListener('change', this.onInputChange);
     this.addEventListener('input', this.onInputChange);

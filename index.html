@@ -8,6 +8,7 @@
 
     <script type="module" src="index.js"></script>
     <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="switch-control.css">
   </head>
   <body>
     <main data-layout="narrow">
@@ -72,7 +73,7 @@
         </p>
       </details>
 
-      <h2>Input-Control Select</h2>
+      <h2>Input-Control: Select</h2>
 
       <input-control data-for="h1, h2, h3" data-prop="font-family" data-local="title-font">
         <label for="title-font">Title Font</label>
@@ -100,33 +101,6 @@
             Save the setting to <code>localStorage</code>
             as <code>title-font</code>
           </dd>
-        </dl>
-      </details>
-
-      <h2>Toggle-Control: Single Button (switch)</h2>
-
-      <toggle-control id="layout" data-for="main" data-attr="data-layout" data-off="narrow">
-        <strong>Layout</strong>
-        <button>wide</button>
-      </toggle-control>
-
-      <details>
-        <dl>
-          <dt><code>id: layout</code></dt>
-          <dd>
-            Provide an <code>id</code> for toggles,
-            in order to reference them
-            with a reset button or output display
-          </dd>
-
-          <dt><code>data-for: main</code></dt>
-          <dd>Control the <code>main</code> element</dd>
-
-          <dt><code>data-attr: data-layout</code></dt>
-          <dd>Set the <code>data-layout</code> attribute</dd>
-
-          <dt><code>data-off: narrow</code></dt>
-          <dd>Set the <code>narrow</code> value when toggled off</dd>
         </dl>
       </details>
 
@@ -183,6 +157,66 @@
         </dl>
       </details>
 
+      <h2>Toggle-Control: Single Button (switch)</h2>
+
+      <toggle-control id="layout" data-for="main" data-attr="data-layout" data-off="narrow">
+        <strong>Layout</strong>
+        <button>wide</button>
+      </toggle-control>
+
+      <details>
+        <dl>
+          <dt><code>id: layout</code></dt>
+          <dd>
+            Provide an <code>id</code> for toggles,
+            in order to reference them
+            with a reset button or output display
+          </dd>
+
+          <dt><code>data-for: main</code></dt>
+          <dd>Control the <code>main</code> element</dd>
+
+          <dt><code>data-attr: data-layout</code></dt>
+          <dd>Set the <code>data-layout</code> attribute</dd>
+
+          <dt><code>data-off: narrow</code></dt>
+          <dd>Set the <code>narrow</code> value when toggled off</dd>
+        </dl>
+      </details>
+
+      <h2>Switch-Control: Basics</h2>
+
+      <p>
+        A single-button <code>toggle-control</code>
+        works a bit like a switch,
+        but the <code>switch-control</code>
+        component is more specialized to the use-case.
+      </p>
+
+      <switch-control data-attr="data-blackout">
+        <button id="blackout" is-switch>blackout</button>
+      </switch-control>
+
+      <details>
+        <dl>
+          <dt><code>id: layout</code></dt>
+          <dd>
+            Provide an <code>id</code> for toggles,
+            in order to reference them
+            with a reset button or output display
+          </dd>
+
+          <dt><code>data-for: main</code></dt>
+          <dd>Control the <code>main</code> element</dd>
+
+          <dt><code>data-attr: data-layout</code></dt>
+          <dd>Set the <code>data-layout</code> attribute</dd>
+
+          <dt><code>data-off: narrow</code></dt>
+          <dd>Set the <code>narrow</code> value when toggled off</dd>
+        </dl>
+      </details>
+
       <hr>
 
       <h2>Outputs & Resets</h2>
@@ -203,7 +237,7 @@
         <dd><output for="color-scheme"></output></dd>
       </dl>
 
-      <button data-reset="layout title-font color-scheme hue">reset all</button>
+      <button data-reset="blackout layout title-font color-scheme hue">reset all</button>
 
       <h2>ToDo</h2>
       <ul>

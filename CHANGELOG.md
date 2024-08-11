@@ -1,5 +1,32 @@
 # Changes
 
+## v0.1.5 - 2024-08-11
+
+- NEW: `switch-control` element
+  is deigned specifically for single-button
+  toggle switches.
+  - Supports both `data-on` and `data-off` attributes
+  - Pass functions to the
+    `onPress()` and `onUnPress()` methods
+    for additional behaviors
+- NEW: `switch-control.css` provides
+  styling for any `button[is-switch]`,
+  along with custom properties for styling.
+- NEW: `GroundControl` provides
+  a getter for `inputId`
+  (previously only a setter).
+- BREAKING: The `usedValue` getter
+  defined by `GroundControl`
+  does not enforce an empty-string fallback.
+  Instead, attributes/properties are removed
+  when `usedValue` is undefined.
+- BREAKING: `GroundControl` provides
+  static `blockDisplay()` method,
+  rather than applying `display:block` by default.
+  Both `toggle-control` and `input-control`
+  apply this as a default setting,
+  but `switch-control` does not.
+
 ## v0.1.4 - 2024-08-06
 
 - FIX: Don't use ES modules for webC templates
@@ -13,7 +40,7 @@
 
 Initial Features…
 
-- `ground-control` base class
+- `GroundControl` base class
 - `input-control` supports basic `input` and `select` types
   (but not files, checkboxes, or radios)
 - `toggle-control` supports solo and grouped toggles

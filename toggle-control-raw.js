@@ -31,6 +31,7 @@ class ToggleControl extends GroundControl {
 
   constructor() {
     super();
+    GroundControl.blockDisplay(this);
     this.addEventListener('click', this.onTogglePress);
   }
 

@@ -9,6 +9,10 @@ on other elements of the page.
   from `input` and `select` elements
 - Use `toggle-control` to get values
   from solo or grouped toggle buttons
+- Use `switch-control` for
+  single on/off switch buttons
+  (and extend by providing functions
+  to the `onPress()` and `onUnPress()` methods)
 - Store and retrieve values
   in either `sessionStorage` or `localStorage`
 - Update `output` elements to display the current values
@@ -51,6 +55,15 @@ Or a group of toggle buttons:
   <button>dark</button>
 </toggle-control>
 ```
+
+Or a switch:
+
+```html
+<switch-control data-prop="color-scheme" data-on="dark">
+  <button id="dark-mode" is-switch>dark mode</button>
+</switch-control>
+```
+
 ## Installation
 
 You have a few options (choose one):
@@ -137,13 +150,20 @@ This provides `input-control` and `toggle-control` components.
   - `data-off="<value>"` [optional]:
     the value to use when no other value is selected
     (primarily for toggles, but also useful with `select`)
+  - for `switch-control` only…
+    - `data-on="<value>"` [optional]:
+      the value to use when toggled on
+      (falls back to the button value defined below)
+    - `data-id` [optional]:
+      establishes which nested `button` to use as a toggle,
+      if multiple are present
 - `button` element attributes inside `toggle-control`:
   - `data-value` [defaults to the `button.innerText`]:
     provide a value for the toggle
     that is different from the text of the button
   - `aria-pressed` [optional]:
     set the initial pressed state of each toggle
-    (only one in a group can be active at a time)
+    (only one in a `toggle-control` can be pressed at a time)
 - Support for `output` displays and `reset` buttons:
   - Using the `id` of the `input`/`select` or the `toggle-control`…
   - `<output for="<control-id>">`:

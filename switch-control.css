@@ -1,0 +1,126 @@
+button[is-switch] {
+/* custom properties, and their fallback values
+  … sizes
+  --switch-block, 1em
+  --switch-gap, 0.6ch
+  --switch-border-width, 2px
+  --switch-padding, --switch-border-width
+
+  … colors
+  --switch-color, unset
+  --switch-track, transparent
+  --switch-border, currentColor
+  --switch-thumb, currentColor
+  --switch-color-pressed, --switch-color
+  --switch-track-pressed, --switch-track
+  --switch-border-pressed, --switch-border
+  --switch-thumb-pressed, --switch-thumb
+
+  … transition
+  --switch-transition-time, 150ms
+  --switch-transition-function, ease-out
+*/
+
+  /* sizes */
+  ---switch-block: var(--switch-block, 1em);
+  ---switch-gap: var(--switch-gap, 0.6ch);
+
+  ---switch-border-width: var(
+    --switch-border-width,
+    2px
+  );
+  ---switch-padding: var(
+    --switch-padding,
+    var(--switch-border-width, 2px)
+  );
+
+  /* colors */
+  ---switch-color: var(--switch-color, inherit);
+  ---switch-track: var(--switch-track, transparent);
+  ---switch-border: var(--switch-border, currentColor);
+  ---switch-thumb: var(--switch-thumb, currentColor);
+
+  /* auto */
+  ---switch-thumb-size: calc(
+    var(---switch-block) - (var(---switch-padding) * 2)
+  );
+
+  ---switch-start: 0px;
+  ---switch-end: calc(var(---switch-thumb-size) * 2);
+
+  background: transparent;
+  border: transparent;
+  color: unset;
+  display: inline grid;
+  font: inherit;
+  grid-template-columns:
+    [track-start] var(---switch-border-width)
+    var(---switch-padding)
+    var(---switch-start)
+    [toggle-start] var(---switch-end)
+    var(---switch-padding)
+    var(---switch-border-width)
+    [track-end] var(---switch-gap)
+    [toggle-end] auto
+  ;
+  padding: unset;
+  transition:
+    grid-template-columns
+    var(--switch-transition-time, 150ms)
+    var(--switch-transition-function, ease-out);
+
+  &::before,
+  &::after {
+    align-self: safe center;
+    box-sizing: content-box;
+    content: '';
+    color: var(---switch-color, unset);
+    display: block;
+    grid-row: 1;
+  }
+
+  /* track */
+  &::before {
+    background: var(---switch-track, transparent);
+    block-size: var(---switch-block);
+    border:
+      var(---switch-border-width, 2px)
+      solid
+      var(---switch-border, currentColor);
+    border-radius: 1lh;
+    grid-column: track;
+  }
+
+  /* thumb */
+  &::after {
+    align-self: center;
+    aspect-ratio: 1;
+    background: var(---switch-thumb, currentColor);
+    block-size: var(---switch-thumb-size);
+    border-radius: 100%;
+    justify-self: start;
+    grid-column: toggle;
+  }
+
+  &[aria-pressed=true] {
+    ---switch-end: var(---switch-thumb-size);
+    ---switch-start: var(---switch-thumb-size);
+
+    ---switch-color: var(
+      --switch-color-pressed,
+      var(--switch-color, inherit)
+    );
+    ---switch-track: var(
+      --switch-track-pressed,
+      var(--switch-track, transparent)
+    );
+    ---switch-border: var(
+      --switch-border-pressed,
+      var(--switch-border, currentColor)
+    );
+    ---switch-thumb: var(
+      --switch-thumb-pressed,
+      var(--switch-thumb, currentColor)
+    );
+  }
+}

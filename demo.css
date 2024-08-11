@@ -13,6 +13,11 @@ body {
   }
 }
 
+[data-blackout=blackout] {
+  * { visibility: hidden; }
+  button { visibility: visible; }
+}
+
 [data-layout=narrow] {
   max-inline-size: min(35em, 80%);
 }

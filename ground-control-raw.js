@@ -1,4 +1,13 @@
 class GroundControl extends HTMLElement {
+  static register(tagName) {
+    if ('customElements' in window) {
+      customElements.define(
+        tagName || 'ground-control',
+        GroundControl
+      );
+    }
+  }
+
   static observedAttributes = [
     'data-for', // <selector-list> of elements to update…
     // by setting either…
@@ -13,15 +22,6 @@ class GroundControl extends HTMLElement {
     'data-off',
   ];
 
-  static register(tagName) {
-    if ('customElements' in window) {
-      customElements.define(
-        tagName || 'ground-control',
-        GroundControl
-      );
-    }
-  }
-
   static _appendShadowTemplate = (node) => {
     const template = document.createElement('template');
     const shadowRoot = node.attachShadow({ mode: 'open' });
@@ -34,6 +34,11 @@ class GroundControl extends HTMLElement {
     node.shadowRoot.adoptedStyleSheets = [shadowStyle];
   }
 
+  static blockDisplay = (node) => {
+    GroundControl._appendShadowTemplate(node);
+    GroundControl._adoptShadowStyles(node);
+  };
+
   #related = {};
   #inputId;
   #currentValue;
@@ -42,8 +47,6 @@ class GroundControl extends HTMLElement {
 
   constructor() {
     super();
-    GroundControl._appendShadowTemplate(this);
-    GroundControl._adoptShadowStyles(this);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -82,9 +85,7 @@ class GroundControl extends HTMLElement {
   }
 
   get value() { return this.#currentValue; }
-  get usedValue() {
-    return this.value || this.dataset.off || '';
-  }
+  get usedValue() { return this.value || this.dataset.off; }
 
   set inputId(value) {
     this.#inputId = value;
@@ -99,6 +100,8 @@ class GroundControl extends HTMLElement {
       `output[for=${value}]`
     );
   }
+
+  get inputId() { return this.#inputId; }
 
   set targets(to) {
     this.#related.targets = (to && typeof to === 'object')
@@ -133,15 +136,22 @@ class GroundControl extends HTMLElement {
 
   broadCast = () => {
     if (!this.hasInput) { return; }
-
     this.storedValue = this.value;
 
     this.targets.forEach((el) => {
       if (this.dataset.prop) {
-        el.style.setProperty(this.dataset.prop, this.usedValue);
+        if (this.usedValue) {
+          el.style.setProperty(this.dataset.prop, this.usedValue);
+        } else {
+          el.style.removeProperty(this.dataset.prop);
+        }
       }
       if (this.dataset.attr) {
-        el.setAttribute(this.dataset.attr, this.usedValue);
+        if (this.usedValue) {
+          el.setAttribute(this.dataset.attr, this.usedValue);
+        } else {
+          el.removeAttribute(this.dataset.attr);
+        }
       }
     });
 
