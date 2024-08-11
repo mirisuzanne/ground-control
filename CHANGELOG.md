@@ -1,5 +1,9 @@
 # Changes
 
+## v0.1.6 - 2024-08-11
+
+- FIX: Improve `is-switch` styles for better integration
+
 ## v0.1.5 - 2024-08-11
 
 - NEW: `switch-control` element

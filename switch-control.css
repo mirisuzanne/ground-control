@@ -51,8 +51,8 @@ button[is-switch] {
   background: transparent;
   border: transparent;
   color: unset;
-  display: inline grid;
-  font: inherit;
+  display: inline-grid;
+  gap: 0;
   grid-template-columns:
     [track-start] var(---switch-border-width)
     var(---switch-padding)
