@@ -1,5 +1,10 @@
 # Changes
 
+## v0.1.7 - 2024-08-26
+
+- FIX: `switch-control` element
+  checks for stored values when first connected
+
 ## v0.1.6 - 2024-08-11
 
 - FIX: Improve `is-switch` styles for better integration

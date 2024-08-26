@@ -5,7 +5,7 @@ export default class SwitchControl extends GroundControl {
     if ("customElements" in window) {
       customElements.define(tagName || "switch-control", SwitchControl);
     }
-  }
+  };
 
   static observedAttributes = [
     ...super.observedAttributes,
@@ -19,7 +19,7 @@ export default class SwitchControl extends GroundControl {
   onPress;
   onUnPress;
 
-  get toggle() { return this.#toggle; }
+  get toggle() { return this.#toggle; };
 
   set toggle(el) {
     if (!el) throw 'A toggle is required';
@@ -33,14 +33,16 @@ export default class SwitchControl extends GroundControl {
 
     this.#toggle = el;
 
-    this.initialValue = this.pressed;
-    this.#addToggleListener(el);
-    if (el.id) this.inputId = el.id;
-    this.hasInput = true;
     if (!this.dataset.on) {
       this.dataset.on = el.dataset.value || el.innerText;
     }
-  }
+
+    this.initialValue = this.pressedValue;
+
+    this.#addToggleListener(el);
+    if (el.id) this.inputId = el.id;
+    this.hasInput = true;
+  };
 
   get pressed() {
     return this.toggle.getAttribute('aria-pressed') === 'true';
@@ -50,9 +52,15 @@ export default class SwitchControl extends GroundControl {
     this.toggle.setAttribute('aria-pressed', to ? 'true' : 'false');
   };
 
+  get pressedValue() {
+    return this.pressed
+      ? this.dataset.on
+      : this.dataset.off;
+  };
+
   constructor() {
     super();
-  }
+  };
 
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
@@ -63,39 +71,46 @@ export default class SwitchControl extends GroundControl {
         break;
     }
 
-    this.toggleActions();
-  }
+    this.doToggleActions();
+  };
 
   connectedCallback() {
     super.connectedCallback();
     this.#findToggle();
-    this.toggleActions();
-  }
+    this.pressed = this.#isPressedValue(this.storedValue);
+    this.doToggleActions();
+  };
 
   disconnectedCallback() {
     this.#removeToggleListener(this.toggle);
-  }
+  };
 
-  togglePress = () => {
+  onTogglePress = () => {
     this.pressed = !this.pressed;
-    this.toggleActions();
-  }
+    this.doToggleActions();
+  };
 
-  toggleActions = () => {
+  doToggleActions = () => {
     if (!this.toggle) return;
 
-    this.value = this.pressed
-      ? this.dataset.on
-      : this.dataset.off;
+    this.value = this.pressedValue;
 
     if (this.pressed && this.onPress) this.onPress();
     if (!this.pressed && this.onUnPress) this.onUnPress();
-  }
+  };
+
+  onValueChange = () => {
+    if (this.usedValue !== this.pressedValue) {
+      this.pressed = this.#isPressedValue(this.usedValue);
+    }
+  };
 
   onReset = () => {
-    this.pressed = this.initialValue;
-    this.toggleActions();
+    this.pressed = this.#isPressedValue(this.initialValue);
+    this.doToggleActions();
   };
+
+  #isPressedValue = (value) => this.dataset.on === value;
 
   #findToggle = () => {
     const foundToggle = this.dataset.id
@@ -103,15 +118,15 @@ export default class SwitchControl extends GroundControl {
       : this.querySelector('button');
 
     this.toggle = foundToggle;
-  }
+  };
 
   #addToggleListener = (el) => {
-    el.addEventListener('click', this.togglePress);
-  }
+    el.addEventListener('click', this.onTogglePress);
+  };
 
   #removeToggleListener = (el) => {
-    el.removeEventListener('click', this.togglePress);
-  }
+    el.removeEventListener('click', this.onTogglePress);
+  };
 }
 
 SwitchControl.register();

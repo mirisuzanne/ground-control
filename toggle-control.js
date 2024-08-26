@@ -8,7 +8,7 @@ export default class ToggleControl extends GroundControl {
         ToggleControl
       );
     }
-  }
+  };
 
   toggles = [];
 
@@ -19,23 +19,23 @@ export default class ToggleControl extends GroundControl {
         target === btn ? 'true' : 'false'
       );
     });
-  }
+  };
 
   get pressed() {
     return this.toggles.find(
       (btn) => btn.getAttribute('aria-pressed') === 'true'
     );
-  }
+  };
 
   get pressedValue() {
     return this.pressed?.dataset.value;
-  }
+  };
 
   constructor() {
     super();
     GroundControl.blockDisplay(this);
     this.addEventListener('click', this.onTogglePress);
-  }
+  };
 
   connectedCallback() {
     super.connectedCallback();
@@ -62,18 +62,18 @@ export default class ToggleControl extends GroundControl {
     this.initialValue = this.pressedValue || this.dataset.off;
 
     this.value = this.storedValue || this.initialValue;
-  }
+  };
 
   onTogglePress = (event) => {
     this.doPress(event.target);
     this.value = this.pressedValue;
-  }
+  };
 
   onValueChange = () => {
     if (this.usedValue !== this.pressedValue) {
       this.pressed = this.#toggleFromValue();
     }
-  }
+  };
 
   doPress = (target) => {
     if (!this.toggles.includes(target)) return;
@@ -86,7 +86,7 @@ export default class ToggleControl extends GroundControl {
     } else {
       this.pressed = target;
     }
-  }
+  };
 
   #toggleFromValue = () => this.toggles.find(
     (btn) => btn.dataset.value === this.usedValue

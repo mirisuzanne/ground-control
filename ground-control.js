@@ -6,7 +6,7 @@ export default class GroundControl extends HTMLElement {
         GroundControl
       );
     }
-  }
+  };
 
   static observedAttributes = [
     'data-for', // <selector-list> of elements to update…
@@ -27,12 +27,12 @@ export default class GroundControl extends HTMLElement {
     const shadowRoot = node.attachShadow({ mode: 'open' });
     template.innerHTML = `<slot></slot>`;
     shadowRoot.appendChild(template.content.cloneNode(true));
-  }
+  };
   static _adoptShadowStyles = (node) => {
     const shadowStyle = new CSSStyleSheet();
     shadowStyle.replaceSync(`:host { display: block }`);
     node.shadowRoot.adoptedStyleSheets = [shadowStyle];
-  }
+  };
 
   static blockDisplay = (node) => {
     GroundControl._appendShadowTemplate(node);
@@ -47,7 +47,7 @@ export default class GroundControl extends HTMLElement {
 
   constructor() {
     super();
-  }
+  };
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (newValue === oldValue) return;
@@ -67,22 +67,22 @@ export default class GroundControl extends HTMLElement {
         break;
     }
     this.broadCast();
-  }
+  };
 
   connectedCallback() {
     this.targets = this.dataset.for;
-  }
+  };
 
   disconnectedCallback() {
     this.#removeResetListener();
-  }
+  };
 
   // getters and setters
   set value(newValue) {
     this.#currentValue = newValue;
     if (this.onValueChange) this.onValueChange();
     this.broadCast();
-  }
+  };
 
   get value() { return this.#currentValue; }
   get usedValue() { return this.value || this.dataset.off; }
@@ -99,7 +99,7 @@ export default class GroundControl extends HTMLElement {
     this.#related.displays = this.#findAll(
       `output[for=${value}]`
     );
-  }
+  };
 
   get inputId() { return this.#inputId; }
 
@@ -107,7 +107,7 @@ export default class GroundControl extends HTMLElement {
     this.#related.targets = (to && typeof to === 'object')
       ? to
       : this.#findAll(to || ':root');
-  }
+  };
 
   get targets() { return this.#related.targets || []; }
   get displays() { return this.#related.displays || []; }
@@ -115,7 +115,7 @@ export default class GroundControl extends HTMLElement {
   get storedValue() {
     return sessionStorage.getItem(this.dataset.session)
       || localStorage.getItem(this.dataset.local);
-  }
+  };
 
   set storedValue(value) {
     const clearWhen = [
@@ -124,7 +124,7 @@ export default class GroundControl extends HTMLElement {
     ];
 
     this.#updateStorage(clearWhen.includes(value));
-  }
+  };
 
   // public methods
   onValueChange;
@@ -172,7 +172,7 @@ export default class GroundControl extends HTMLElement {
         ? sessionStorage.removeItem(this.dataset.session)
         : sessionStorage.setItem(this.dataset.session, this.value);
     }
-  }
+  };
 
   // private methods
   #findAll = (selector) => [
@@ -183,7 +183,7 @@ export default class GroundControl extends HTMLElement {
     this.#related.resets.forEach((resetBtn) => {
       resetBtn.addEventListener('click', this.onReset);
     });
-  }
+  };
 
   #removeResetListener = () => {
     if (!this.#related.resets) { return; }
@@ -191,5 +191,5 @@ export default class GroundControl extends HTMLElement {
     this.#related.resets.forEach((resetBtn) => {
       resetBtn.removeEventListener('click', this.onReset);
     });
-  }
+  };
 }
