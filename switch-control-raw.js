@@ -53,7 +53,7 @@ class SwitchControl extends GroundControl {
   get pressedValue() {
     return this.pressed
       ? this.dataset.on
-      : this.dataset.off;
+      : this.dataset.off || 'false';
   };
 
   constructor() {
@@ -75,7 +75,11 @@ class SwitchControl extends GroundControl {
   connectedCallback() {
     super.connectedCallback();
     this.#findToggle();
-    this.pressed = this.#isPressedValue(this.storedValue);
+
+    if (this.storedValue) {
+      this.pressed = this.#isPressedValue(this.storedValue);
+    }
+
     this.doToggleActions();
   };
 

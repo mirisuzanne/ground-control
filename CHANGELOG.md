@@ -1,5 +1,9 @@
 # Changes
 
+## v0.2.1 - 2024-08-26
+
+- FIX: `switch-control` raw file out-of-date 🙈
+
 ## v0.2.0 - 2024-08-26
 
 - BREAKING: Export named classes from `index.js` module

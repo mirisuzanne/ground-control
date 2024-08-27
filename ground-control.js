@@ -28,6 +28,7 @@ export default class GroundControl extends HTMLElement {
     template.innerHTML = `<slot></slot>`;
     shadowRoot.appendChild(template.content.cloneNode(true));
   };
+
   static _adoptShadowStyles = (node) => {
     const shadowStyle = new CSSStyleSheet();
     shadowStyle.replaceSync(`:host { display: block }`);
