@@ -206,15 +206,43 @@
             with a reset button or output display
           </dd>
 
-          <dt><code>data-for: main</code></dt>
-          <dd>Control the <code>main</code> element</dd>
+          <dt><code>data-session: blackout</code></dt>
+          <dd>
+            Save the setting to <code>sessionStorage</code>
+            as <code>blackout</code>
+          </dd>
 
-          <dt><code>data-attr: data-layout</code></dt>
-          <dd>Set the <code>data-layout</code> attribute</dd>
-
-          <dt><code>data-off: narrow</code></dt>
-          <dd>Set the <code>narrow</code> value when toggled off</dd>
+          <dt><code>data-attr: data-blackout</code></dt>
+          <dd>Set the <code>data-blackout</code> attribute</dd>
         </dl>
+      </details>
+
+      <h2>Switch Control: Extended</h2>
+
+      <p>
+        This CSS toggle switch extends
+        the switch control base class,
+        using the <code>onPress()</code> and <code>onUnPress()</code>
+        methods to turn site styles on and off.
+        In this case there is no attribute or property
+        being set on a target element.
+      </p>
+
+      <css-toggle data-session="site-styles">
+        <button id="site-styles" is-switch aria-pressed="true">site styles</button>
+      </css-toggle>
+
+      <details>
+        <dt><code>data-session: site-styles</code></dt>
+        <dd>
+          Save the setting to <code>sessionStorage</code>
+          as <code>site-styles</code>
+        </dd>
+
+        <dt><code>aria-pressed: true</code></dt>
+        <dd>
+          By default, the site styles are turned on.
+        </dd>
       </details>
 
       <hr>
@@ -250,5 +278,34 @@
         </li>
       </ul>
     </main>
+
+    <script type="module">
+      import {SwitchControl, GroundControl} from "./index.js";
+
+      class CSSToggle extends SwitchControl {
+        static register(tagName) {
+          if ('customElements' in window) {
+            customElements.define(tagName || 'css-toggle', CSSToggle);
+          }
+        };
+
+        set CSS(enable) {
+          const embed = document.querySelectorAll('style');
+          const link = document.querySelectorAll('link[rel=stylesheet]');
+          const styles = [...embed, ...link];
+
+          styles.forEach((sheet) => sheet.disabled = !enable);
+        };
+
+        constructor() {
+          super();
+          GroundControl.blockDisplay(this);
+          this.onPress = () => this.CSS = true;
+          this.onUnPress = () => this.CSS = false;
+        };
+      }
+
+      CSSToggle.register();
+    </script>
   </body>
 </html>

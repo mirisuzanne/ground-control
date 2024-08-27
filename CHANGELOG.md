@@ -1,5 +1,11 @@
 # Changes
 
+## v0.2.0 - 2024-08-26
+
+- BREAKING: Export named classes from `index.js` module
+- FIX: `switch-control` value storage works for
+  default-pressed switches
+
 ## v0.1.7 - 2024-08-26
 
 - FIX: `switch-control` element
