@@ -58,7 +58,6 @@ class ToggleControl extends GroundControl {
 
     this.pressed = this.pressed;
     this.initialValue = this.pressedValue || this.dataset.off;
-
     this.value = this.storedValue || this.initialValue;
   };
 
@@ -68,9 +67,8 @@ class ToggleControl extends GroundControl {
   };
 
   onValueChange = () => {
-    if (this.usedValue !== this.pressedValue) {
-      this.pressed = this.#toggleFromValue();
-    }
+    if (this.value === this.pressedValue) return;
+    this.pressed = this.#toggleFromValue();
   };
 
   doPress = (target) => {

@@ -18,12 +18,13 @@ export default class InputControl extends GroundControl {
 
   #input;
 
+  get listenFor () {
+    return this.dataset.event || 'change';
+  }
+
   constructor() {
     super();
     GroundControl.blockDisplay(this);
-
-    this.addEventListener('change', this.onInputChange);
-    this.addEventListener('input', this.onInputChange);
   }
 
   connectedCallback() {
@@ -40,16 +41,21 @@ export default class InputControl extends GroundControl {
 
     this.initialValue = this.#input.value;
     this.value = this.storedValue || this.initialValue;
+
+    this.addEventListener(this.listenFor, this.onInputChange);
   }
 
-  onInputChange = (event) => {
-    const onType = this.dataset.event || 'change';
-    if (onType !== event.type) return;
+  disconnectedCallback() {
+    this.removeEventListener(this.listenFor, this.onInputChange);
+  }
 
+  onInputChange = () => {
     this.value = this.#input.value;
   }
 
   onValueChange = () => {
+    if (this.#input.value === this.value) return;
+
     this.#input.value = this.value;
   }
 

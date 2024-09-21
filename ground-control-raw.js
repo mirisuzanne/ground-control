@@ -89,11 +89,11 @@ class GroundControl extends HTMLElement {
   get usedValue() { return this.value || this.dataset.off; }
 
   set inputId(value) {
-    this.#inputId = value;
+    if (this.#inputId) { this.#removeResetListener(); }
 
-    this.#removeResetListener();
+    this.#inputId = value;
     this.#related.resets = this.#findAll(
-      `button[data-reset~=${value}]`
+      `button:is([data-reset~=${value}], [data-reset="*"])`
     );
     this.#addResetListener();
 
@@ -131,7 +131,7 @@ class GroundControl extends HTMLElement {
   onValueChange;
   onEventChange;
 
-  onReset = () => {
+  reSet = () => {
     this.value = this.initialValue;
   };
 
@@ -182,15 +182,27 @@ class GroundControl extends HTMLElement {
 
   #addResetListener = () => {
     this.#related.resets.forEach((resetBtn) => {
-      resetBtn.addEventListener('click', this.onReset);
+      resetBtn.resetTargets = [
+        ...(resetBtn.resetTargets || []),
+        this
+      ];
+
+      if (!resetBtn.resetListener) {
+        resetBtn.resetListener = () => {
+          resetBtn.resetTargets.forEach((target) => { target.reSet(); });
+        }
+        resetBtn.addEventListener('click', resetBtn.resetListener);
+      }
     });
   };
 
   #removeResetListener = () => {
-    if (!this.#related.resets) { return; }
+    this.#related.resets?.forEach((resetBtn) => {
+      resetBtn.resetTargets.filter((target) => target !== this);
 
-    this.#related.resets.forEach((resetBtn) => {
-      resetBtn.removeEventListener('click', this.onReset);
+      if (resetBtn.resetTargets.length === 0) {
+        resetBtn.removeEventListener('click', resetBtn.resetListener);
+      }
     });
   };
 }

@@ -1,5 +1,13 @@
 # Changes
 
+## v0.3.0 = 2024-09-20
+
+- NEW: Allow `data-reset="*"` universal reset buttons
+- REFACTOR: Only add a single event listener per reset button
+- BREAKING: Replaced `GroundControl.onReset()` => `GroundControl.reSet()`
+- FIX: Changing the `switch-control.value` programmatically
+  correctly invokes `onPress` or `onUnpress`
+
 ## v0.2.1 - 2024-08-26
 
 - FIX: `switch-control` raw file out-of-date 🙈

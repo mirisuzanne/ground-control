@@ -69,7 +69,7 @@ class SwitchControl extends GroundControl {
         break;
     }
 
-    this.doToggleActions();
+    this.setValueToPressed();
   };
 
   connectedCallback() {
@@ -80,7 +80,7 @@ class SwitchControl extends GroundControl {
       this.pressed = this.#isPressedValue(this.storedValue);
     }
 
-    this.doToggleActions();
+    this.setValueToPressed();
   };
 
   disconnectedCallback() {
@@ -89,26 +89,23 @@ class SwitchControl extends GroundControl {
 
   onTogglePress = () => {
     this.pressed = !this.pressed;
-    this.doToggleActions();
+    this.setValueToPressed();
   };
 
-  doToggleActions = () => {
+  setValueToPressed = () => {
     if (!this.toggle) return;
-
     this.value = this.pressedValue;
+    this.doToggleActions();
+  }
 
+  doToggleActions = () => {
     if (this.pressed && this.onPress) this.onPress();
     if (!this.pressed && this.onUnPress) this.onUnPress();
   };
 
   onValueChange = () => {
-    if (this.usedValue !== this.pressedValue) {
-      this.pressed = this.#isPressedValue(this.usedValue);
-    }
-  };
-
-  onReset = () => {
-    this.pressed = this.#isPressedValue(this.initialValue);
+    if (this.value === this.pressedValue) return;
+    this.pressed = this.#isPressedValue(this.value);
     this.doToggleActions();
   };
 

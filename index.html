@@ -265,7 +265,7 @@
         <dd><output for="color-scheme"></output></dd>
       </dl>
 
-      <button data-reset="blackout layout title-font color-scheme hue">reset all</button>
+      <button data-reset="*">reset all</button>
 
       <h2>ToDo</h2>
       <ul>
@@ -300,9 +300,10 @@
         constructor() {
           super();
           GroundControl.blockDisplay(this);
-          this.onPress = () => this.CSS = true;
-          this.onUnPress = () => this.CSS = false;
         };
+
+        onPress = () => this.CSS = true;
+        onUnPress = () => this.CSS = false;
       }
 
       CSSToggle.register();
